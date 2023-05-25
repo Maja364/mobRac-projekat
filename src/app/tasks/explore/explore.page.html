@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar>
+
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    
+    <ion-title>Tasks</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+
+<ion-content>
+
+<ion-list>
+  <app-task-element *ngFor="let task of tasks" [task]="task" [routerLink]="['/', 'tasks', 'tabs', 'explore', task.id]"></app-task-element>
+</ion-list>
+
+  <ion-buttons class="ion-justify-content-center">
+    <ion-button routerLink="/subjects" color="tertiary" fill="solid">
+      subjects
+    </ion-button>
+  </ion-buttons>
+</ion-content>
