@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-log-in',
@@ -15,7 +16,7 @@ export class LogInPage implements OnInit {
   }
 
 
-  onLogIn() {
+  onLogIn(form:NgForm) {
     this.authService.logIn();
     this.router.navigateByUrl('/tasks/tabs/explore');
   }
