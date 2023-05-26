@@ -15,9 +15,9 @@ export class TaskDetailsPage implements OnInit {
   constructor(private route: ActivatedRoute, private tasksService: TasksService) { }
 
   ngOnInit() {
-  /*   this.route.paramMap.subscribe(paramMap => {
-      this.task = this.tasksService.getTask(paramMap.get('taskId'));
-    }) */
+     this.route.paramMap.subscribe(paramMap => {
+      this.task = this.tasksService.getTask(paramMap.get('taskId')!)!;
+    }) 
   }
 
 
