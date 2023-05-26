@@ -1,6 +1,10 @@
-<ion-item>
-  <ion-avatar slot="start">
-    <ion-img [src]="task.imgUrl"></ion-img>
-  </ion-avatar>
-  <ion-label>{{task.title}}</ion-label>
+<ion-item [routerLink]="task.id">
+  <ion-item>
+    <ion-avatar slot="start">
+      <ion-img [src]="task.imgUrl"></ion-img>
+    </ion-avatar>
+    <ion-label>{{task.title}}</ion-label>
+  </ion-item>
+  <ion-icon name="bookmark-sharp" slot="end" (click)="openAlert($event)"></ion-icon>
+
 </ion-item>

@@ -1,6 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Task } from '../task.model';
 import { TasksService } from '../tasks.service';
+import { ModalController } from '@ionic/angular';
+import { TaskModalComponent } from '../task-modal/task-modal.component';
 
 
 @Component({
@@ -17,10 +19,24 @@ export class ExplorePage implements OnInit, OnDestroy {
 
   tasks: Task[];
 
-  constructor(private tasksService: TasksService) {
+  constructor(private tasksService: TasksService,private taskController: ModalController ) {
     console.log('constructor');
     this.tasks = this.tasksService.tasks;
   }
+  openModal(){
+    this.taskController.create({
+      component:TaskModalComponent,
+      componentProps:{title:'Add task'}
+    }).then((modal:HTMLIonModalElement)=>{
+      modal.present();
+      return modal.onDidDismiss();
+    }).then((resultData)=>{
+      if(resultData.role==='confirm'){
+        console.log(resultData);
+      }
+    });
+  }
+  
 
   ngOnInit() {
     console.log('ngOnIt');
