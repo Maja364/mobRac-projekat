@@ -33,6 +33,9 @@ export class ExplorePage implements OnInit, OnDestroy {
     }).then((resultData)=>{
       if(resultData.role==='confirm'){
         console.log(resultData);
+        this.tasksService.addTask(resultData.data.taskData.title,resultData.data.taskData.description).subscribe((res)=>{
+          console.log(res);
+        });
       }
     });
   }
