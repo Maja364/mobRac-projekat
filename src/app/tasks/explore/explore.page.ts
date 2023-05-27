@@ -21,7 +21,7 @@ export class ExplorePage implements OnInit, OnDestroy {
 
   constructor(private tasksService: TasksService,private taskController: ModalController ) {
     console.log('constructor');
-    this.tasks = this.tasksService.tasks;
+    this.tasks = this.tasksService.task;
   }
   openModal(){
     this.taskController.create({
@@ -34,7 +34,7 @@ export class ExplorePage implements OnInit, OnDestroy {
       if(resultData.role==='confirm'){
         console.log(resultData);
         this.tasksService.addTask(resultData.data.taskData.title,resultData.data.taskData.description).subscribe((res)=>{
-          console.log(res);
+          this.tasks=this.tasks;
         });
       }
     });
@@ -42,20 +42,7 @@ export class ExplorePage implements OnInit, OnDestroy {
   
 
   ngOnInit() {
-    this.tasksService.getTasks().subscribe((tasksData)=>{
-      console.log(tasksData);
-      const tasks:Task[]=[];
-
-      for(const key in tasksData){
-        if(tasksData.hasOwnProperty(key)){
-          tasks.push({
-            id:key,
-            title: tasksData[key].title,
-            description: tasksData[key].description,
-            imgUrl:'https://png.pngtree.com/png-clipart/20190117/ourmid/pngtree-hand-painted-teachers-day-a-stack-of-books-book-png-image_432486.jpg',
-          });
-        }
-      }
+    this.tasksService.getTasks().subscribe((tasks)=>{
       this.tasks=tasks;
     });
   }
