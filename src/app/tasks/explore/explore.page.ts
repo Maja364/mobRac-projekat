@@ -42,7 +42,22 @@ export class ExplorePage implements OnInit, OnDestroy {
   
 
   ngOnInit() {
-    console.log('ngOnIt');
+    this.tasksService.getTasks().subscribe((tasksData)=>{
+      console.log(tasksData);
+      const tasks:Task[]=[];
+
+      for(const key in tasksData){
+        if(tasksData.hasOwnProperty(key)){
+          tasks.push({
+            id:key,
+            title: tasksData[key].title,
+            description: tasksData[key].description,
+            imgUrl:'https://png.pngtree.com/png-clipart/20190117/ourmid/pngtree-hand-painted-teachers-day-a-stack-of-books-book-png-image_432486.jpg',
+          });
+        }
+      }
+      this.tasks=tasks;
+    });
   }
 
   ionViewWillEnter() {
