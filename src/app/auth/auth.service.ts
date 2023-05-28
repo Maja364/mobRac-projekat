@@ -48,7 +48,19 @@ export class AuthService {
     return this._user.asObservable().pipe(
       map((user:User)=>{
         if(user){
-          return user.id;
+          return user.token;
+        }else{
+          return null;
+        }
+      })
+    );
+  }
+
+  get token(){
+    return this._user.asObservable().pipe(
+      map((user:User)=>{
+        if(user){
+          return user.token;
         }else{
           return null;
         }
