@@ -9,6 +9,7 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./log-in.page.scss'],
 })
 export class LogInPage implements OnInit {
+  isLoading=false;
 
   constructor(private authService: AuthService, private router: Router) { }
 
@@ -17,11 +18,14 @@ export class LogInPage implements OnInit {
 
 
   onLogIn(form:NgForm) {
+
+    this.isLoading=true;
     if(form.valid){
 
       this.authService.logIn(form.value).subscribe(resData=>{
         console.log("Successfully signed in!");
         console.log(resData);
+        this.isLoading=false;
         this.router.navigateByUrl('/tasks/tabs/explore');
       })
     }
