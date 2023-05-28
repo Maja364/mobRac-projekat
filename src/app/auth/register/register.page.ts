@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../auth.service';
+import { LoadingController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -10,7 +12,7 @@ import { AuthService } from '../auth.service';
 export class RegisterPage implements OnInit {
 
   registerForm!:FormGroup;
-  constructor(private authService:AuthService) { }
+  constructor(private authService:AuthService, private loadingController:LoadingController, private router:Router) { }
 
   ngOnInit() {
     this.registerForm=new FormGroup({
@@ -22,10 +24,18 @@ export class RegisterPage implements OnInit {
   }
 
   onRegister(){
-    this.authService.register(this.registerForm.value).subscribe(resData=>{
-      console.log("Successfull registration!");
-      console.log(resData);
-    })
+    this.loadingController.create({message:"Registering..."}).then((loadingEl:HTMLIonLoadingElement)=>{
+      loadingEl.present();
+
+      this.authService.register(this.registerForm.value).subscribe(resData=>{
+        console.log("Successfull registration!");
+        console.log(resData);
+
+        loadingEl.dismiss();
+        this.router.navigateByUrl('/tasks');
+      })
+
+    });
   }
 
 }
