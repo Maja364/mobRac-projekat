@@ -1,6 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Task } from '../task.model';
 import { TasksService } from '../tasks.service';
+import { ModalController } from '@ionic/angular';
+import { TaskModalComponent } from '../task-modal/task-modal.component';
+import { Subscription } from 'rxjs';
 
 
 @Component({
@@ -15,35 +18,59 @@ export class ExplorePage implements OnInit, OnDestroy {
     {id: 't2', title: 'Kolokvijum iz Projektovanja softvera', description: 'Kolokvijum spremiti do petka', imgUrl: 'https://i.pinimg.com/564x/bc/89/7c/bc897c914c753731b1ac2060f784b836.jpg'}
   ]; */
 
-  tasks: Task[];
+  tasks!: Task[];
+  private taskSub!:Subscription;
 
-  constructor(private tasksService: TasksService) {
+  constructor(private tasksService: TasksService,private taskController: ModalController ) {
     console.log('constructor');
-    this.tasks = this.tasksService.tasks;
+    // this.tasks = this.tasksService.task;
   }
+  openModal(){
+    this.taskController.create({
+      component:TaskModalComponent,
+      componentProps:{title:'Add task'}
+    }).then((modal:HTMLIonModalElement)=>{
+      modal.present();
+      return modal.onDidDismiss();
+    }).then((resultData)=>{
+      if(resultData.role==='confirm'){
+        console.log(resultData);
+        this.tasksService.addTask(resultData.data.taskData.title,resultData.data.taskData.description).subscribe((res)=>{
+          // this.tasks=this.tasks;
+        });
+      }
+    });
+  }
+  
 
   ngOnInit() {
-    console.log('ngOnIt');
+    this.taskSub=this.tasksService.tasks.subscribe((tasks)=>{
+      this.tasks=tasks;
+    });
   }
 
   ionViewWillEnter() {
-    console.log('ionViewWillEnter');
+    this.tasksService.getTasks().subscribe((tasks)=>{
+      // this.tasks=tasks;
+    });
   }
 
-  ionViewDidEnter() {
-    console.log('ionViewDidEnter');
-  }
+  // ionViewDidEnter() {
+  //   console.log('ionViewDidEnter');
+  // }
 
-  ionViewWillLeave() {
-    console.log('ionViewWillLeave');
-  }
+  // ionViewWillLeave() {
+  //   console.log('ionViewWillLeave');
+  // }
 
-  ionViewDidLeave() {
-    console.log('ionViewDidLeave');
-  }
+  // ionViewDidLeave() {
+  //   console.log('ionViewDidLeave');
+  // }
 
   ngOnDestroy() {
-    console.log('ngOnDestroy');
+    if(this.taskSub){
+      this.taskSub.unsubscribe();
+    }
   }
 
 }
