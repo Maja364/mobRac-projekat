@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Task } from './task.model';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs';
+import { BehaviorSubject, map, switchMap, take, tap } from 'rxjs';
 
 interface TaskData{
   title:string;
@@ -13,31 +13,38 @@ interface TaskData{
 })
 export class TasksService {
 
-  private _tasks:Task[]=[];
+  private _tasks=new BehaviorSubject<Task[]>([]);
 
-  // tasks: Task[] = [
-  //   {id: 't1', title: 'Projekat iz Mobilnog racunarstva', description: 'Projekat zavrsiti do 1. juna', imgUrl: 'https://i.pinimg.com/736x/ac/c2/9e/acc29eb7588b23d2cf548e32eff5ce9c.jpg'},
-  //   {id: 't2', title: 'Kolokvijum iz Projektovanja softvera', description: 'Kolokvijum spremiti do petka', imgUrl: 'https://i.pinimg.com/564x/bc/89/7c/bc897c914c753731b1ac2060f784b836.jpg'}
-  // ];
+  oldTasks: Task[] = [
+    {id: 't1', title: 'Projekat iz Mobilnog racunarstva', description: 'Projekat zavrsiti do 1. juna', imgUrl: 'https://i.pinimg.com/736x/ac/c2/9e/acc29eb7588b23d2cf548e32eff5ce9c.jpg'},
+    {id: 't2', title: 'Kolokvijum iz Projektovanja softvera', description: 'Kolokvijum spremiti do petka', imgUrl: 'https://i.pinimg.com/564x/bc/89/7c/bc897c914c753731b1ac2060f784b836.jpg'}
+  ];
 
   constructor(private http:HttpClient) { }
 
-  get task():Task[]{
-    return this._tasks;
+  get tasks(){
+    return this._tasks.asObservable();
   }
 
   addTask(title:string, description:string){
+    let generatedId: string;
     return this.http.post<{name:string}>('https://task-app-96268-default-rtdb.europe-west1.firebasedatabase.app/tasks.json',{
       title,
       description
-    }).pipe(map((resData)=>{
-      this._tasks.push({
-        id:resData.name,
+    }).pipe(switchMap((resData)=>{
+      generatedId=resData.name;
+      return this.tasks;
+      
+    }),
+    take(1),
+    tap((tasks)=>{
+      this._tasks.next(tasks.concat({
+        id:generatedId,
         title,
         description,
         imgUrl:'https://i.pinimg.com/564x/bc/89/7c/bc897c914c753731b1ac2060f784b836.jpg'
-      });
-      return this._tasks;
+      }));
+
     }));
   }
 
@@ -57,11 +64,15 @@ export class TasksService {
         }
       }
 
-      this._tasks=tasks;
+      this._tasks.next(tasks);
       return tasks;
-    }))
+    }),
+    tap(tasks=>{
+      this._tasks.next(tasks);
+    })
+    );
   }
   getTask(id: string){
-    return this._tasks.find((t) => t.id === id);
+    return this.oldTasks.find((t) => t.id === id);
   }
 }
