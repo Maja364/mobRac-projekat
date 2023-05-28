@@ -26,7 +26,7 @@ interface UserData{
 export class AuthService {
 
   private _isUserAuthenticated = false;
-  private _user=new BehaviorSubject<User>(null);
+  private _user=new BehaviorSubject<User>(null!);
 
   constructor(private http:HttpClient) {
 
