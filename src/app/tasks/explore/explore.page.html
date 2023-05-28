@@ -18,7 +18,7 @@
 
 <ion-content>
 
-  <ion-list>
+  <ion-list [inset]="true">
     <app-task-element *ngFor="let task of tasks" [task]="task"
       [routerLink]="['/', 'tasks', 'tabs', 'explore', task.id]"></app-task-element>
   </ion-list>
