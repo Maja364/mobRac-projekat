@@ -17,8 +17,8 @@
               <ion-input type="email" ngModel name="email" required email #email="ngModel"></ion-input>
             </ion-item>
 
-            <ion-item lines="none" *ngIf="email.invalid && email.touched ">
-              <ion-label>Should be a valid email address.</ion-label>
+            <ion-item class="message" lines="none" *ngIf="email.invalid && email.touched">
+              <ion-label><i>Should be a valid email address.</i></ion-label>
             </ion-item>
 
             <ion-item>
@@ -26,8 +26,8 @@
               <ion-input type="password" ngModel name="password" required minlength="5" #password="ngModel"></ion-input>
             </ion-item>
 
-            <ion-item lines="none" *ngIf="password.invalid && password.touched ">
-              <ion-label>Minimun 5 characters.</ion-label>
+            <ion-item class="message" lines="none" *ngIf="password.invalid && password.touched ">
+              <ion-label><i>Minimun 5 characters.</i></ion-label>
             </ion-item>
 
           </ion-list>
