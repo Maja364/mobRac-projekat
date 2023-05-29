@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, tap } from 'rxjs';
+import { BehaviorSubject, map, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { User } from './user.model';
 
@@ -26,15 +26,48 @@ interface UserData{
 export class AuthService {
 
   private _isUserAuthenticated = false;
-  private _user=new BehaviorSubject<User>(null);
+  private _user=new BehaviorSubject<User>(null!);
 
   constructor(private http:HttpClient) {
 
   }
 
-  get isUserAuthenticated(): boolean {
-    return this._isUserAuthenticated;
+  get isUserAuthenticated() {
+    return this._user.asObservable().pipe(
+      map((user:User)=>{
+        if(user){
+          return !!user.token; //konverzija token u boolean
+        }else{
+          return false;
+        }
+      })
+    );
   }
+
+  get userId(){
+    return this._user.asObservable().pipe(
+      map((user:User)=>{
+        if(user){
+          return user.token;
+        }else{
+          return null;
+        }
+      })
+    );
+  }
+
+  get token(){
+    return this._user.asObservable().pipe(
+      map((user:User)=>{
+        if(user){
+          return user.token;
+        }else{
+          return null;
+        }
+      })
+    );
+  }
+
   register(user:UserData){
     this._isUserAuthenticated = true;
     return this.http.post<AuthResponseData>(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=${environment.firebaseAPIKey}`,
@@ -65,7 +98,7 @@ export class AuthService {
   
 
   logOut(){
-    this._isUserAuthenticated = false;
+    this._user.next(null!);
   }
 
 }
