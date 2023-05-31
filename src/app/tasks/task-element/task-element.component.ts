@@ -20,17 +20,17 @@ export class TaskElementComponent  implements OnInit {
     event.stopPropagation();
     event.preventDefault();
     this.alertController.create({
-      header:"Saving task",
-      message:"Are you sure you want to save this task?",
+      header:"Delete task",
+      message:"Are you sure you want to delete this task?",
       buttons:[{
-        text:"Save",
+        text:"Delete",
         handler:()=>{
-          console.log("Saved");
+          console.log("Deleted");
         }
       },{
         text:"Cancel",
         handler:()=>{
-          console.log("Didn't save it.");
+          console.log("Didn't delete it.");
         }
       }]
     }).then((alert:HTMLIonAlertElement)=>{

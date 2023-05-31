@@ -100,4 +100,9 @@ export class TasksService {
   getTask(id: string){
     return this.oldTasks.find((t) => t.id === id);
   }
+
+  deleteTask(id:string){
+    
+  }
+
 }
