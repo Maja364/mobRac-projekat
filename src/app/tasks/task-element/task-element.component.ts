@@ -21,22 +21,19 @@ export class TaskElementComponent  implements OnInit {
     event.stopPropagation();
     event.preventDefault();
 
-    this.taskService
-          .deleteTask(this.task.id)
-          .subscribe((tasks)=>{
-            this.alertDelete();
-          })
+    
 
-        }
-        private alertDelete(){
+  
+         
         this.alertController.create({
           header:"Delete task",
           message:"Are you sure you want to delete this task?",
           buttons:[{
             text:"Delete",
             handler:()=>{
-              console.log("deleteTask")
-              
+              this.taskService
+            .deleteTask(this.task.id)
+            .subscribe()
             }
           },{
             text:"Cancel",
@@ -48,5 +45,6 @@ export class TaskElementComponent  implements OnInit {
           alert.present();
         });
       }
+    }
 
-}
+
