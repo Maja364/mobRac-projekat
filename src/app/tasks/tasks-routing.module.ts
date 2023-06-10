@@ -16,6 +16,8 @@ const routes: Routes = [
         path: 'subjects',
         loadChildren: () => import('./explore/subjects/subjects.module').then(m => m.SubjectsPageModule)
       },
+      
+     
       {
         path: '',
         redirectTo: '/tasks/tabs/explore',

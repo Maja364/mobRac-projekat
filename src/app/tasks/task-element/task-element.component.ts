@@ -21,10 +21,6 @@ export class TaskElementComponent  implements OnInit {
     event.stopPropagation();
     event.preventDefault();
 
-    
-
-  
-         
         this.alertController.create({
           header:"Delete task",
           message:"Are you sure you want to delete this task?",

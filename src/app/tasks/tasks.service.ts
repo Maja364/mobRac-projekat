@@ -67,7 +67,7 @@ export class TasksService {
           null!, 
           title, 
           description, 
-          'https://picsum.photos/seed/picsum/500/500',
+          'https://picsum.photos/seed/picsum/300/300',
           fetchedUserId
           );
           return this.http.post<{name:string}>(
