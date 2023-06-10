@@ -20,25 +20,33 @@ export class TaskElementComponent  implements OnInit {
   openAlert(event:{stopPropagation:()=>void; preventDefault:()=>void;}){
     event.stopPropagation();
     event.preventDefault();
-    this.alertController.create({
-      header:"Delete task",
-      message:"Are you sure you want to delete this task?",
-      buttons:[{
-        text:"Delete",
-        handler:()=>{
-          console.log("pre deleteTask")
-          // this.taskService.deleteTask(id);
-          console.log("posle deleteTask")
+
+    this.taskService
+          .deleteTask(this.task.id)
+          .subscribe((tasks)=>{
+            this.alertDelete();
+          })
+
         }
-      },{
-        text:"Cancel",
-        handler:()=>{
-          console.log("Didn't delete it.");
-        }
-      }]
-    }).then((alert:HTMLIonAlertElement)=>{
-      alert.present();
-    });
-  }
+        private alertDelete(){
+        this.alertController.create({
+          header:"Delete task",
+          message:"Are you sure you want to delete this task?",
+          buttons:[{
+            text:"Delete",
+            handler:()=>{
+              console.log("deleteTask")
+              
+            }
+          },{
+            text:"Cancel",
+            handler:()=>{
+              console.log("Didn't delete it.");
+            }
+          }]
+        }).then((alert:HTMLIonAlertElement)=>{
+          alert.present();
+        });
+      }
 
 }

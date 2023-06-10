@@ -25,10 +25,24 @@ export class TasksService {
       
    }
 
-   deleteTask(id:string){
-    // this.firestoreCollection.doc(id).delete();
-    console.log("deleteTask");
-   }
+   deleteTask(id: string) {
+    return this.authService.token.pipe(
+      take(1),
+      switchMap((token) => {
+        return this.http.delete(
+          `https://task-app-96268-default-rtdb.europe-west1.firebasedatabase.app/tasks/${id}.json?auth=${token}`
+        );
+      }),
+      switchMap(() => {
+        console.log('Usao u delete');
+        return this._tasks;
+      }),
+      take(1),
+      tap((tasks) => {
+        this._tasks.next(tasks.filter((r) => r.id !== id));
+      })
+    );
+  }
 
   get tasks(){
     return this._tasks.asObservable();
