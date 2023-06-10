@@ -18,11 +18,17 @@ export class TasksService {
 
   private _tasks=new BehaviorSubject<Task[]>([]);
 
-  oldTasks: Task[] = [
-    {id: 't1', title: 'Projekat iz Mobilnog racunarstva', description: 'Projekat zavrsiti do 1. juna', imgUrl: 'https://i.pinimg.com/736x/ac/c2/9e/acc29eb7588b23d2cf548e32eff5ce9c.jpg',userId:'xx'},
-  ];
 
-  constructor(private http:HttpClient, private authService:AuthService) { }
+
+
+  constructor(private http:HttpClient, private authService:AuthService) {
+      
+   }
+
+   deleteTask(id:string){
+    // this.firestoreCollection.doc(id).delete();
+    console.log("deleteTask");
+   }
 
   get tasks(){
     return this._tasks.asObservable();
@@ -47,7 +53,7 @@ export class TasksService {
           null!, 
           title, 
           description, 
-          'https://i.pinimg.com/564x/bc/89/7c/bc897c914c753731b1ac2060f784b836.jpg',
+          'https://picsum.photos/seed/picsum/500/500',
           fetchedUserId
           );
           return this.http.post<{name:string}>(
@@ -70,6 +76,10 @@ export class TasksService {
 
   }
 
+  deleteTas(id:string){
+    
+  }
+
   getTasks(){
 
     return this.authService.token.pipe(
@@ -84,6 +94,7 @@ export class TasksService {
   
         for(const key in tasksData){
           if(tasksData.hasOwnProperty(key)){
+          
             tasks.push(new Task(key,tasksData[key].title,tasksData[key].description,tasksData[key].imgUrl,tasksData[key].userId));
           }
         }
@@ -97,12 +108,33 @@ export class TasksService {
     );
   }
 
-  getTask(id: string){
-    return this.oldTasks.find((t) => t.id === id);
+  // getTask(id: string){
+  //   return this.oldTasks.find((t) => t.id === id);
+  // }
+
+  getTAsk(id: string) {
+    //return this.recipes.find((r) => r.id === id);
+    return this.authService.token.pipe(
+      take(1),
+      switchMap((token) =>
+        this.http.get<TaskData>(
+          `https://task-app-96268-default-rtdb.europe-west1.firebasedatabase.app/tasks/${id}.json?auth=${token}`
+        )
+      ),
+      map((resData) => {
+        console.log(resData);
+        return new Task(
+          id ,
+          resData.title,
+          resData.description,
+          resData.imgUrl,
+          resData.userId
+        );
+      })
+    );
   }
 
-  deleteTask(id:string){
-    
-  }
+ 
+
 
 }

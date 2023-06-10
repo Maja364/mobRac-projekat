@@ -18,14 +18,14 @@
 
 <ion-content>
 
-  <ion-list [inset]="true">
-    <app-task-element *ngFor="let task of tasks" [task]="task"
-      [routerLink]="['/', 'tasks', 'tabs', 'explore', task.id]"></app-task-element>
-  </ion-list>
+  <ion-content>
+    <ion-searchbar placeholder="Search" [(ngModel)]="searchTerm" showCancelButton="focus" animated>
+    </ion-searchbar>
 
-  <ion-buttons class="ion-justify-content-center">
-    <ion-button routerLink="/subjects" color="tertiary" fill="solid">
-      subjects
-    </ion-button>
-  </ion-buttons>
-</ion-content>
+    <ion-list [inset]="true">
+      <app-task-element *ngFor="let task of tasks | search:searchTerm" [task]="task"
+        [routerLink]="['/', 'tasks', 'tabs', 'explore', task.id]"></app-task-element>
+    </ion-list>
+
+
+  </ion-content>

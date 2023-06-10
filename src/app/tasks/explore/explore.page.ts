@@ -20,6 +20,8 @@ export class ExplorePage implements OnInit, OnDestroy {
 
   tasks!: Task[];
   private taskSub!:Subscription;
+  public searchTerm:any='';
+
 
   constructor(private tasksService: TasksService,private taskController: ModalController ) {
     console.log('constructor');

@@ -13,8 +13,8 @@ const routes: Routes = [
         loadChildren: () => import('./explore/explore.module').then(m => m.ExplorePageModule)
       },
       {
-        path: 'saved',
-        loadChildren: () => import('./saved/saved.module').then(m => m.SavedPageModule)
+        path: 'subjects',
+        loadChildren: () => import('./explore/subjects/subjects.module').then(m => m.SubjectsPageModule)
       },
       {
         path: '',

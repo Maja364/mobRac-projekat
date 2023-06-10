@@ -8,13 +8,17 @@ import { ExplorePageRoutingModule } from './explore-routing.module';
 
 import { ExplorePage } from './explore.page';
 import { TaskElementComponent } from '../task-element/task-element.component';
+import { SearchPipe } from 'src/app/search.pipe';
+
+
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ExplorePageRoutingModule
+    ExplorePageRoutingModule,
+    SearchPipe
   ],
   declarations: [ExplorePage, TaskElementComponent]
 })
