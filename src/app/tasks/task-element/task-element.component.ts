@@ -17,7 +17,7 @@ export class TaskElementComponent  implements OnInit {
 
   ngOnInit() {}
 
-  openAlert(event:{stopPropagation:()=>void; preventDefault:()=>void;}, id:string ){
+  openAlert(event:{stopPropagation:()=>void; preventDefault:()=>void;}){
     event.stopPropagation();
     event.preventDefault();
     this.alertController.create({
