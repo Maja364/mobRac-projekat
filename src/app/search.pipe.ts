@@ -5,7 +5,7 @@ import { Pipe, PipeTransform } from '@angular/core';
   standalone: true,
 })
 export class SearchPipe implements PipeTransform {
-
+//custom pipe
   transform(value: any, args?: any): any {
 
     if(!value)return null;
