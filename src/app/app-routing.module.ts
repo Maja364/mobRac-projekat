@@ -15,11 +15,11 @@ const routes: Routes = [
     canLoad: [AuthGuard]
   },
 
-  // {
-  //   path: 'subjects',
-  //   loadChildren: () => import('./tasks/explore/subjects/subjects.module').then( m => m.SubjectsPageModule),
-  //   canLoad: [AuthGuard]
-  // },
+  {
+    path: 'subjects',
+    loadChildren: () => import('./tasks/explore/subjects/subjects.module').then( m => m.SubjectsPageModule),
+    canLoad: [AuthGuard]
+  },
   {
     path: 'log-in',
     loadChildren: () => import('./auth/log-in/log-in.module').then( m => m.LogInPageModule)
