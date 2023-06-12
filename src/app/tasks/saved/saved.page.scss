@@ -1,24 +1,11 @@
 ion-datetime{
     background: #fff;
+    border-radius: 8px;
 }
 
-ion-modal{
-    --background:rgba(44,39,45,0.2);
+ion-content{
+    --background: url('https://cdn.pixabay.com/photo/2019/09/22/16/21/clock-4496464_1280.png') no-repeat center/cover fixed;  
+    
 
-    &::part(content){
-        backdrop-filter: blur(6px);
-    }
-
-    ion-content{
-       --background: transparent;
-
-        --padding-top: 25vh;
-        --padding-start: 20px;
-        --pading-end: 20px;
-
-        ion-datetime{
-            border-radius: 8px;
-        }
-
-    }
+    
 }

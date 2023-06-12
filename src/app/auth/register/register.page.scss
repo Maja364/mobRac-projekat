@@ -1,0 +1,13 @@
+.register {
+    align-content: center;
+    background: white;
+    width: 75%;
+    max-width: 800px;
+    margin: 65px auto;
+    padding: 5px;
+    border-radius: 10px;
+  }
+ion-content {
+    --background: url("https://cdn.pixabay.com/photo/2018/04/03/23/24/composition-3288396_1280.jpg")
+      no-repeat center/cover fixed;
+  }
