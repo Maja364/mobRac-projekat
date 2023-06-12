@@ -41,6 +41,8 @@ export class TaskElementComponent  implements OnInit {
           alert.present();
         });
       }
+
+     
     }
 
 

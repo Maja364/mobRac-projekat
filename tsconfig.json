@@ -22,6 +22,9 @@
       "es2018", 
       "dom"
     ],
+    "types": [
+      "moment" 
+    ],
     "useDefineForClassFields": false
   },
   "angularCompilerOptions": {
