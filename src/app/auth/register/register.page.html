@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-buttons slot = "start">
-      <ion-back-button defaultHref = "/log-in">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/log-in">
       </ion-back-button>
     </ion-buttons>
 
@@ -10,47 +10,52 @@
 </ion-header>
 
 <ion-content>
-<body>
-  <div class="register">
-  <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
-    <ion-grid>
+
+  <body>
+    <div class="register">
+      <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
+        <ion-grid>
 
 
-      <ion-row>
-        <ion-col size-sm="3" offset-sm="3">
-          <ion-item>
-            <ion-label position="floating">Name</ion-label>
-            <ion-input type="text" formControlName="name"></ion-input>
-          </ion-item>
-        </ion-col>
-        <ion-col size-sm="3">
-          <ion-item>
-            <ion-label position="floating">Surname</ion-label>
-            <ion-input type="text" formControlName="surname"></ion-input>
-          </ion-item>
-        </ion-col>
-      </ion-row>
+          <ion-row>
+            <ion-col size-sm="3" offset-sm="3">
+              <ion-item class="imeprez">
+                <ion-label position="floating">Name</ion-label>
+                <ion-input type="text" formControlName="name"></ion-input>
+              </ion-item>
+            </ion-col>
+            <ion-col size-sm="3">
+              <ion-item class="imeprez">
+                <ion-label position="floating">Surname</ion-label>
+                <ion-input type="text" formControlName="surname"></ion-input>
+              </ion-item>
+            </ion-col>
+          </ion-row>
 
-      <ion-row>
-        <ion-col size-sm="6" offset-sm="3">
-          <ion-item>
-            <ion-label position="floating">Email</ion-label>
-            <ion-input type="email" formControlName="email"></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-label position="floating">Password</ion-label>
-            <ion-input type="password" formControlName="password"></ion-input>
-          </ion-item>
-        </ion-col>
-      </ion-row>
+          <ion-row>
+            <ion-col size-sm="6" offset-sm="3">
+              <ion-list>
+                <ion-col size-sm="6" offset-sm="3" class="polja">
+                  <ion-item>
+                    <ion-label position="floating">Email</ion-label>
+                    <ion-input type="email" formControlName="email"></ion-input>
+                  </ion-item>
+                  <ion-item>
+                    <ion-label position="floating">Password</ion-label>
+                    <ion-input type="password" formControlName="password"></ion-input>
+                  </ion-item>
+                </ion-col>
+              </ion-list>
+            </ion-col>
+          </ion-row>
 
-      <ion-row>
-        <ion-col size-sm="6" offset-sm="3">
-          <ion-button type="submit" color="primary" shape="round" expand="block">Register</ion-button>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </form>
-</div>
-</body>
+          <ion-row>
+            <ion-col size-sm="6" offset-sm="3">
+              <ion-button type="submit" color="primary" shape="round" expand="block">Register</ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </form>
+    </div>
+  </body>
 </ion-content>
