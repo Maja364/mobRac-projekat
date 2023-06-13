@@ -1,19 +1,20 @@
 ion-content{
     --background: url("https://cdn.pixabay.com/photo/2019/06/10/11/35/learning-4264032_1280.jpg")
     no-repeat center/cover fixed;
+   
 }
 
  
 ion-card {
-    max-width: 400px;
-    max-height: 600px;
-    border-radius: 33px;
+  max-width: 400px;
+  max-height: 600px;
+  border-radius: 33px;
+
+  img {
   
-    img {
+    align-content: center;
+    align-self: center;
     
-      align-content: center;
-      align-self: center;
-      
-    }
-  
   }
+
+}
