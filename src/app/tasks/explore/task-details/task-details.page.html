@@ -11,9 +11,13 @@
 </ion-header>
 
 
+
 <ion-content>
 
   <ion-card class="ion-padding">
+    <ion-grid id="grid">
+      <ion-row>
+        <ion-col size="9" id="col1">
     <img [src]="task.imgUrl">
     <ion-card-header>
       <ion-card-title>{{task.title}}</ion-card-title>
@@ -21,6 +25,9 @@
     <ion-card-content>
       {{task.description}}
     </ion-card-content>
+  </ion-col>
+</ion-row>
+</ion-grid>
   </ion-card>
 
 </ion-content>
